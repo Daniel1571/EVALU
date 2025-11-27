@@ -1,74 +1,77 @@
-// Esperar que el DOM esté cargado
+import { db } from "./firebase-config.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ───── LOGIN ─────
 document.addEventListener('DOMContentLoaded', () => {
-  // Referencias a secciones y formularios
-  const loginSection = document.getElementById('loginSection');
-  const sugerenciasSection = document.getElementById('sugerenciasSection');
-  const encuestaSection = document.getElementById('encuestaSection');
-  const mejoraSection = document.getElementById('mejoraSection');
-  const carteleraSection = document.getElementById('carteleraSection');
 
-  const loginForm = document.getElementById('loginForm');
-  const sugerenciasForm = document.getElementById('sugerenciasForm');
-  const encuestaForm = document.getElementById('encuestaForm');
-  const mejoraForm = document.getElementById('mejoraForm');
+  const loginForm = document.getElementById("loginForm");
 
-  // Manejar login
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const correo = document.getElementById('correoLogin').value.trim();
+    const correo = document.getElementById("correoLogin").value.trim();
 
-    // Validación: solo números antes de @cbtis122.edu.mx
-    const correoPermitido = /^[0-9]+@cbtis122\.edu\.mx$/;
+    const validacion = /^[0-9]+@cbtis122\.edu\.mx$/;
 
-    if (!correoPermitido.test(correo)) {
-      alert('Correo inválido. Solo se permiten correos institucionales válidos con números.');
+    if (!validacion.test(correo)) {
+      alert("Correo inválido. Solo correos institucionales.");
       return;
     }
 
-    // Login exitoso: ocultar login y mostrar otras secciones
-    loginSection.style.display = 'none';
-    sugerenciasSection.style.display = 'block';
-    encuestaSection.style.display = 'block';
-    mejoraSection.style.display = 'block';
-    carteleraSection.style.display = 'block';
+    // Mostrar secciones
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("sugerenciasSection").style.display = "block";
+    document.getElementById("encuestaSection").style.display = "block";
+    document.getElementById("mejoraSection").style.display = "block";
+    document.getElementById("carteleraSection").style.display = "block";
   });
 
-  // Prevenir recarga y manejar envíos de formularios restantes
-  sugerenciasForm.addEventListener('submit', (e) => {
+  // ───── GUARDAR SUGERENCIAS ─────
+  document.getElementById("sugerenciasForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const mensaje = document.getElementById('mensaje').value.trim();
-    if (!mensaje) {
-      alert('Por favor, escribe un mensaje.');
-      return;
-    }
-    alert('Gracias por tus sugerencias.');
-    sugerenciasForm.reset();
+
+    const mensaje = document.getElementById("mensaje").value.trim();
+
+    await addDoc(collection(db, "sugerencias"), {
+      mensaje,
+      fecha: new Date()
+    });
+
+    alert("Sugerencia enviada");
+    e.target.reset();
   });
 
-  encuestaForm.addEventListener('submit', (e) => {
+  // ───── GUARDAR ENCUESTA ─────
+  document.getElementById("encuestaForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const sentimiento = document.getElementById('sentimiento').value.trim();
-    const ambiente = document.getElementById('ambiente').value.trim();
-    const mejoras = document.getElementById('mejoras').value.trim();
 
-    if (!sentimiento || !ambiente || !mejoras) {
-      alert('Por favor, llena todos los campos requeridos de la encuesta.');
-      return;
-    }
+    const data = {
+      sentimiento: document.getElementById("sentimiento").value.trim(),
+      ambiente: document.getElementById("ambiente").value.trim(),
+      situaciones: document.getElementById("situaciones").value.trim(),
+      mejoras: document.getElementById("mejoras").value.trim(),
+      fecha: new Date()
+    };
 
-    alert('¡Encuesta enviada con éxito! Gracias por participar.');
-    encuestaForm.reset();
+    await addDoc(collection(db, "encuestas"), data);
+
+    alert("Encuesta enviada");
+    e.target.reset();
   });
 
-  mejoraForm.addEventListener('submit', (e) => {
+  // ───── GUARDAR PROPUESTA ─────
+  document.getElementById("mejoraForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const propuesta = document.getElementById('propuesta').value.trim();
-    if (!propuesta) {
-      alert('Por favor, escribe una propuesta.');
-      return;
-    }
-    alert('Gracias por tu propuesta.');
-    mejoraForm.reset();
+
+    const propuesta = document.getElementById("propuesta").value.trim();
+
+    await addDoc(collection(db, "propuestas"), {
+      propuesta,
+      fecha: new Date()
+    });
+
+    alert("Propuesta enviada");
+    e.target.reset();
   });
+
 });
