@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma CBTIS 122</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Plataforma Educativa CBTIS 122</h1>
+    <p>“Compromiso, disciplina y excelencia”</p>
+  </header>
+
+  <!-- Login simple por correo institucional -->
+  <section id="loginSection" class="card">
+    <h2>Iniciar sesión con correo institucional</h2>
+    <form id="loginForm">
+      <input type="email" id="correoLogin" placeholder="Correo institucional" required>
+      <button type="submit">Ingresar</button>
+    </form>
+  </section>
+
+  <!-- Canal de comentarios -->
+  <section id="sugerenciasSection" class="card" style="display:none;">
+    <h2>Piensa, propone, mejora</h2>
+    <form id="sugerenciasForm">
+      <textarea id="mensaje" placeholder="Escribe tus comentarios o sugerencias" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <!-- Encuesta mensual sobre la escuela -->
+  <section id="encuestaSection" class="card" style="display:none;">
+    <h2>Encuesta mensual sobre la experiencia escolar</h2>
+    <p>Queremos conocer cómo te has sentido durante este último mes de clases. Tu opinión nos ayuda a mejorar el ambiente y fortalecer la comunidad educativa.</p>
+    <form id="encuestaForm">
+      <label for="sentimiento">1. ¿Cómo describirías tu experiencia general en las clases durante este mes?</label>
+      <textarea id="sentimiento" placeholder="Comparte tu experiencia..." required></textarea>
+
+      <label for="ambiente">2. ¿Cómo percibes el ambiente en tu grupo y con tus profesores?</label>
+      <textarea id="ambiente" placeholder="Describe el ambiente en clase..." required></textarea>
+
+      <label for="situaciones">3. ¿Ocurrió algún altercado o situación que consideres importante compartir? (opcional)</label>
+      <textarea id="situaciones" placeholder="Cuéntanos brevemente si hubo alguna situación relevante..."></textarea>
+
+      <label for="mejoras">4. ¿Qué propuestas tienes para mejorar la convivencia o la dinámica escolar?</label>
+      <textarea id="mejoras" placeholder="Propón tus ideas o sugerencias..." required></textarea>
+
+      <button type="submit">Enviar encuesta</button>
+    </form>
+  </section>
+
+  <!-- Piensa, propone, mejora -->
+  <section id="mejoraSection" class="card" style="display:none;">
+    <h2>Piensa, propone, mejora</h2>
+    <p>Este espacio está diseñado para que expreses tus ideas y propuestas que ayuden a mejorar la vida escolar. ¡Tu voz cuenta!</p>
+    <form id="mejoraForm">
+      <textarea id="propuesta" placeholder="Escribe tu propuesta o idea de mejora" required></textarea>
+      <button type="submit">Enviar propuesta</button>
+    </form>
+  </section>
+
+  <!-- Cartelera visual -->
+  <section id="carteleraSection" class="card" style="display:none;">
+    <h2>Cartelera visual de datos</h2>
+    <div id="cartelera"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 CBTIS 122 - Todos los derechos reservados</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
