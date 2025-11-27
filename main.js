@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     correoUsuario = correo; // Guardamos el correo aquí
+    console.log("Correo guardado:", correoUsuario); // <-- Verifica en consola
 
     // Mostrar secciones
     document.getElementById("loginSection").style.display = "none";
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
 
     const data = {
-      correo: correoUsuario,  // <-- agregamos el correo aquí
+      correo: correoUsuario,  // <-- agregamos el correo
       sentimiento: document.getElementById("sentimiento").value.trim(),
       ambiente: document.getElementById("ambiente").value.trim(),
       situaciones: document.getElementById("situaciones").value.trim(),
@@ -55,10 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
       fecha: new Date()
     };
 
-    await addDoc(collection(db, "encuestas"), data);
+    console.log("Datos a guardar en encuesta:", data); // <-- Verifica en consola
 
-    alert("Encuesta enviada");
-    e.target.reset();
+    try {
+      await addDoc(collection(db, "encuestas"), data);
+      alert("¡Encuesta enviada con éxito! Correo: " + correoUsuario);
+      e.target.reset();
+    } catch (error) {
+      console.error("Error al enviar encuesta:", error);
+      alert("Hubo un error al enviar la encuesta.");
+    }
   });
 
   document.getElementById("mejoraForm").addEventListener("submit", async (e) => {
