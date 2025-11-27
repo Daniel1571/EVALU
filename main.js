@@ -33,26 +33,39 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById("sugerenciasForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const mensaje = document.getElementById("mensaje").value.trim();
+    if (!correoUsuario) {
+      alert("Debes iniciar sesión con tu correo institucional primero.");
+      return;
+    }
 
+    const mensaje = document.getElementById("mensaje").value.trim();
     if (!mensaje) {
       alert("Por favor escribe un mensaje");
       return;
     }
 
-    await addDoc(collection(db, "sugerencias"), {
-      correo: correoUsuario, // ← guardamos el correo
-      mensaje,
-      fecha: new Date()
-    });
-
-    alert("Sugerencia enviada");
-    e.target.reset();
+    try {
+      await addDoc(collection(db, "sugerencias"), {
+        correo: correoUsuario,
+        mensaje,
+        fecha: new Date()
+      });
+      alert("Sugerencia enviada");
+      e.target.reset();
+    } catch (error) {
+      console.error("Error al enviar sugerencia:", error);
+      alert("Hubo un error al enviar la sugerencia.");
+    }
   });
 
   // ───── GUARDAR ENCUESTA ─────
   document.getElementById("encuestaForm").addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (!correoUsuario) {
+      alert("Debes iniciar sesión con tu correo institucional primero.");
+      return;
+    }
 
     const sentimiento = document.getElementById("sentimiento").value.trim();
     const ambiente = document.getElementById("ambiente").value.trim();
@@ -64,38 +77,50 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    await addDoc(collection(db, "encuestas"), {
-      correo: correoUsuario, // ← guardamos el correo
-      sentimiento,
-      ambiente,
-      situaciones,
-      mejoras,
-      fecha: new Date()
-    });
-
-    alert("¡Encuesta enviada!");
-    e.target.reset();
+    try {
+      await addDoc(collection(db, "encuestas"), {
+        correo: correoUsuario,
+        sentimiento,
+        ambiente,
+        situaciones,
+        mejoras,
+        fecha: new Date()
+      });
+      alert("¡Encuesta enviada!");
+      e.target.reset();
+    } catch (error) {
+      console.error("Error al enviar encuesta:", error);
+      alert("Hubo un error al enviar la encuesta.");
+    }
   });
 
   // ───── GUARDAR PROPUESTA ─────
   document.getElementById("mejoraForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const propuesta = document.getElementById("propuesta").value.trim();
+    if (!correoUsuario) {
+      alert("Debes iniciar sesión con tu correo institucional primero.");
+      return;
+    }
 
+    const propuesta = document.getElementById("propuesta").value.trim();
     if (!propuesta) {
       alert("Por favor escribe una propuesta");
       return;
     }
 
-    await addDoc(collection(db, "propuestas"), {
-      correo: correoUsuario, // ← guardamos el correo
-      propuesta,
-      fecha: new Date()
-    });
-
-    alert("Propuesta enviada");
-    e.target.reset();
+    try {
+      await addDoc(collection(db, "propuestas"), {
+        correo: correoUsuario,
+        propuesta,
+        fecha: new Date()
+      });
+      alert("Propuesta enviada");
+      e.target.reset();
+    } catch (error) {
+      console.error("Error al enviar propuesta:", error);
+      alert("Hubo un error al enviar la propuesta.");
+    }
   });
 
 });
