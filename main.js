@@ -1,12 +1,10 @@
 import { db } from "./firebase-config.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ───── Guardar correo del usuario ─────
-let correoUsuario = "";
+let correoUsuario = ""; // ← Aquí guardaremos el correo al hacer login
 
-// ───── Esperar que el DOM cargue ─────
 document.addEventListener('DOMContentLoaded', () => {
-
+  
   const loginForm = document.getElementById("loginForm");
 
   // ───── LOGIN ─────
@@ -21,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    correoUsuario = correo; // Guardamos el correo para enviarlo con la encuesta
+    correoUsuario = correo; // ← guardamos el correo globalmente
 
     // Mostrar secciones
     document.getElementById("loginSection").style.display = "none";
@@ -34,15 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // ───── GUARDAR SUGERENCIAS ─────
   document.getElementById("sugerenciasForm").addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const mensaje = document.getElementById("mensaje").value.trim();
 
     if (!mensaje) {
-      alert("Escribe un mensaje antes de enviar.");
+      alert("Por favor escribe un mensaje");
       return;
     }
 
     await addDoc(collection(db, "sugerencias"), {
-      correo: correoUsuario,
+      correo: correoUsuario, // ← guardamos el correo
       mensaje,
       fecha: new Date()
     });
@@ -66,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     await addDoc(collection(db, "encuestas"), {
-      correo: correoUsuario, // Aquí se guarda el correo del usuario
+      correo: correoUsuario, // ← guardamos el correo
       sentimiento,
       ambiente,
       situaciones,
@@ -74,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fecha: new Date()
     });
 
-    alert("¡Encuesta enviada con éxito!");
+    alert("¡Encuesta enviada!");
     e.target.reset();
   });
 
@@ -85,12 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const propuesta = document.getElementById("propuesta").value.trim();
 
     if (!propuesta) {
-      alert("Escribe tu propuesta antes de enviar.");
+      alert("Por favor escribe una propuesta");
       return;
     }
 
     await addDoc(collection(db, "propuestas"), {
-      correo: correoUsuario,
+      correo: correoUsuario, // ← guardamos el correo
       propuesta,
       fecha: new Date()
     });
