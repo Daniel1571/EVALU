@@ -1,7 +1,8 @@
 import { db } from "./firebase-config.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ───── LOGIN ─────
+let correoUsuario = ""; // Variable global para guardar el correo
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const loginForm = document.getElementById("loginForm");
@@ -18,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    correoUsuario = correo; // Guardamos el correo aquí
+
     // Mostrar secciones
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("sugerenciasSection").style.display = "block";
@@ -26,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("carteleraSection").style.display = "block";
   });
 
-  // ───── GUARDAR SUGERENCIAS ─────
   document.getElementById("sugerenciasForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -41,11 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
     e.target.reset();
   });
 
-  // ───── GUARDAR ENCUESTA ─────
   document.getElementById("encuestaForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const data = {
+      correo: correoUsuario,  // <-- agregamos el correo aquí
       sentimiento: document.getElementById("sentimiento").value.trim(),
       ambiente: document.getElementById("ambiente").value.trim(),
       situaciones: document.getElementById("situaciones").value.trim(),
@@ -59,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
     e.target.reset();
   });
 
-  // ───── GUARDAR PROPUESTA ─────
   document.getElementById("mejoraForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
