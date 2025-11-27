@@ -1,17 +1,19 @@
 import { db } from "./firebase-config.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-let correoUsuario = ""; // Variable global para guardar el correo
+// ───── Guardar correo del usuario ─────
+let correoUsuario = "";
 
+// ───── Esperar que el DOM cargue ─────
 document.addEventListener('DOMContentLoaded', () => {
 
   const loginForm = document.getElementById("loginForm");
 
+  // ───── LOGIN ─────
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const correo = document.getElementById("correoLogin").value.trim();
-
     const validacion = /^[0-9]+@cbtis122\.edu\.mx$/;
 
     if (!validacion.test(correo)) {
@@ -19,8 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    correoUsuario = correo; // Guardamos el correo aquí
-    console.log("Correo guardado:", correoUsuario); // <-- Verifica en consola
+    correoUsuario = correo; // Guardamos el correo para enviarlo con la encuesta
 
     // Mostrar secciones
     document.getElementById("loginSection").style.display = "none";
@@ -30,12 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("carteleraSection").style.display = "block";
   });
 
+  // ───── GUARDAR SUGERENCIAS ─────
   document.getElementById("sugerenciasForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const mensaje = document.getElementById("mensaje").value.trim();
 
+    if (!mensaje) {
+      alert("Escribe un mensaje antes de enviar.");
+      return;
+    }
+
     await addDoc(collection(db, "sugerencias"), {
+      correo: correoUsuario,
       mensaje,
       fecha: new Date()
     });
@@ -44,36 +51,46 @@ document.addEventListener('DOMContentLoaded', () => {
     e.target.reset();
   });
 
+  // ───── GUARDAR ENCUESTA ─────
   document.getElementById("encuestaForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const data = {
-      correo: correoUsuario,  // <-- agregamos el correo
-      sentimiento: document.getElementById("sentimiento").value.trim(),
-      ambiente: document.getElementById("ambiente").value.trim(),
-      situaciones: document.getElementById("situaciones").value.trim(),
-      mejoras: document.getElementById("mejoras").value.trim(),
-      fecha: new Date()
-    };
+    const sentimiento = document.getElementById("sentimiento").value.trim();
+    const ambiente = document.getElementById("ambiente").value.trim();
+    const situaciones = document.getElementById("situaciones").value.trim();
+    const mejoras = document.getElementById("mejoras").value.trim();
 
-    console.log("Datos a guardar en encuesta:", data); // <-- Verifica en consola
-
-    try {
-      await addDoc(collection(db, "encuestas"), data);
-      alert("¡Encuesta enviada con éxito! Correo: " + correoUsuario);
-      e.target.reset();
-    } catch (error) {
-      console.error("Error al enviar encuesta:", error);
-      alert("Hubo un error al enviar la encuesta.");
+    if (!sentimiento || !ambiente || !mejoras) {
+      alert('Por favor, llena todos los campos requeridos.');
+      return;
     }
+
+    await addDoc(collection(db, "encuestas"), {
+      correo: correoUsuario, // Aquí se guarda el correo del usuario
+      sentimiento,
+      ambiente,
+      situaciones,
+      mejoras,
+      fecha: new Date()
+    });
+
+    alert("¡Encuesta enviada con éxito!");
+    e.target.reset();
   });
 
+  // ───── GUARDAR PROPUESTA ─────
   document.getElementById("mejoraForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const propuesta = document.getElementById("propuesta").value.trim();
 
+    if (!propuesta) {
+      alert("Escribe tu propuesta antes de enviar.");
+      return;
+    }
+
     await addDoc(collection(db, "propuestas"), {
+      correo: correoUsuario,
       propuesta,
       fecha: new Date()
     });
