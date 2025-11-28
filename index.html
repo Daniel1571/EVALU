@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plataforma CBTIS 122</title>
+  <title>EvaluaME - Plataforma CBTIS 122</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <header>
-    <h1>Plataforma Educativa CBTIS 122</h1>
-    <p>“Compromiso, disciplina y excelencia”</p>
+    <h1>EvaluaME</h1>
+    <p>“Tu opinión mejora nuestra escuela”</p>
   </header>
 
-  <!-- Login simple por correo institucional -->
+  <!-- LOGIN -->
   <section id="loginSection" class="card">
     <h2>Iniciar sesión con correo institucional</h2>
     <form id="loginForm">
@@ -21,60 +22,237 @@
     </form>
   </section>
 
-  <!-- Canal de comentarios -->
+  <!-- BUZÓN DE SUGERENCIAS -->
   <section id="sugerenciasSection" class="card" style="display:none;">
-    <h2>Piensa, propone, mejora</h2>
+    <h2>Buzón de sugerencias</h2>
     <form id="sugerenciasForm">
       <textarea id="mensaje" placeholder="Escribe tus comentarios o sugerencias" required></textarea>
       <button type="submit">Enviar</button>
     </form>
   </section>
 
-  <!-- Encuesta mensual sobre la escuela -->
+  <!-- ENCUESTA MENSUAL -->
   <section id="encuestaSection" class="card" style="display:none;">
-    <h2>Encuesta mensual sobre la experiencia escolar</h2>
-    <p>Queremos conocer cómo te has sentido durante este último mes de clases. Tu opinión nos ayuda a mejorar el ambiente y fortalecer la comunidad educativa.</p>
+    <h2>Encuesta mensual</h2>
+
     <form id="encuestaForm">
-      <label for="sentimiento">1. ¿Cómo describirías tu experiencia general en las clases durante este mes?</label>
-      <textarea id="sentimiento" placeholder="Comparte tu experiencia..." required></textarea>
+      
+      <label>1. Evalúa tu experiencia general del mes</label>
+      <select id="sentimiento" required>
+        <option value="">Selecciona</option>
+        <option value="0">0 - Muy mala</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5 - Excelente</option>
+      </select>
 
-      <label for="ambiente">2. ¿Cómo percibes el ambiente en tu grupo y con tus profesores?</label>
-      <textarea id="ambiente" placeholder="Describe el ambiente en clase..." required></textarea>
+      <label>2. Evalúa el ambiente en tu grupo y clases</label>
+      <select id="ambiente" required>
+        <option value="">Selecciona</option>
+        <option value="0">0 - Muy malo</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5 - Excelente</option>
+      </select>
 
-      <label for="situaciones">3. ¿Ocurrió algún altercado o situación que consideres importante compartir? (opcional)</label>
-      <textarea id="situaciones" placeholder="Cuéntanos brevemente si hubo alguna situación relevante..."></textarea>
+      <label>3. ¿Ocurrió alguna situación relevante este mes? (opcional)</label>
+      <textarea id="situaciones" placeholder="Describe lo sucedido..."></textarea>
 
-      <label for="mejoras">4. ¿Qué propuestas tienes para mejorar la convivencia o la dinámica escolar?</label>
-      <textarea id="mejoras" placeholder="Propón tus ideas o sugerencias..." required></textarea>
+      <label>4. ¿Has sufrido acoso o bullying? (opcional)</label>
+      <textarea id="bullying" placeholder="Si deseas, cuéntanos tu experiencia..."></textarea>
 
       <button type="submit">Enviar encuesta</button>
     </form>
   </section>
 
-  <!-- Piensa, propone, mejora -->
-  <section id="mejoraSection" class="card" style="display:none;">
-    <h2>Piensa, propone, mejora</h2>
-    <p>Este espacio está diseñado para que expreses tus ideas y propuestas que ayuden a mejorar la vida escolar. ¡Tu voz cuenta!</p>
-    <form id="mejoraForm">
-      <textarea id="propuesta" placeholder="Escribe tu propuesta o idea de mejora" required></textarea>
-      <button type="submit">Enviar propuesta</button>
+  <!-- EVALUACIÓN AL DOCENTE -->
+  <section id="evalDocenteSection" class="card" style="display:none;">
+    <h2>Evaluación al docente</h2>
+
+    <form id="evalDocenteForm">
+
+      <input type="text" id="nombreDocente" placeholder="Nombre del docente" required>
+      <input type="text" id="materiaDocente" placeholder="Materia" required>
+
+      <label>Calidad al explicar</label>
+      <select id="explicar" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Cumplimiento de horarios</label>
+      <select id="horarios" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Trato a los estudiantes</label>
+      <select id="trato" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Dominio del tema</label>
+      <select id="dominio" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <button type="submit">Enviar evaluación</button>
     </form>
   </section>
 
-  <!-- Cartelera visual -->
-  <section id="carteleraSection" class="card" style="display:none;">
-    <h2>Cartelera visual de datos</h2>
-    <div id="cartelera"></div>
+  <!-- EVALUACIÓN DEL AMBIENTE ESCOLAR -->
+  <section id="ambienteEscolarSection" class="card" style="display:none;">
+    <h2>Evaluación del ambiente escolar</h2>
+
+    <form id="ambienteEscolarForm">
+
+      <input type="text" id="grupo" placeholder="Grado y grupo (Ej. 4F)" required>
+
+      <label>Ambiente en el grupo</label>
+      <select id="ambGrupo" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Respeto entre compañeros</label>
+      <select id="respeto" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Ambiente en talleres / laboratorios</label>
+      <select id="talleres" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Seguridad dentro del plantel</label>
+      <select id="seguridad" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <button type="submit">Enviar evaluación</button>
+    </form>
+  </section>
+
+  <!-- EVALUACIÓN DEL SERVICIO ESCOLAR -->
+  <section id="servicioEscolarSection" class="card" style="display:none;">
+    <h2>Evaluación del servicio escolar</h2>
+
+    <form id="servicioEscolarForm">
+
+      <label>Prefectura</label>
+      <select id="prefectura" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Control escolar</label>
+      <select id="controlEscolar" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Biblioteca</label>
+      <select id="biblioteca" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Servicios médicos</label>
+      <select id="medicos" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label>Vigilancia / Entrada y salida</label>
+      <select id="vigilancia" required>
+        <option value="">Selecciona</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <button type="submit">Enviar evaluación</button>
+    </form>
   </section>
 
   <footer>
-    <p>© 2025 CBTIS 122 - Todos los derechos reservados</p>
+    <p>© 2025 EvaluaME</p>
   </footer>
 
-  <!-- Firebase primero -->
   <script type="module" src="firebase-config.js"></script>
-
-  <!-- Luego tu JS principal -->
   <script type="module" src="main.js"></script>
+
 </body>
 </html>
